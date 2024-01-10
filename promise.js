@@ -1,5 +1,5 @@
 const people = ["Aminu", "Saidu", "Kabir", "Sani", "Musa"];
-run();
+runSync2();
 /*
 sayHello2("Shams")
   .then((r) => console.log(r))
@@ -20,6 +20,24 @@ async function runSync() {
       const greeting = await sayHello(people[i]);
       console.log(greeting);
     }
+    const elapsed = process.hrtime(start);
+    const time = (elapsed[0] + elapsed[1] / 1000000000).toFixed(2);
+    console.log("Total time : ", time + " secs");
+  } catch (err) {
+    console.log(err);
+    const elapsed = process.hrtime(start);
+    const time = (elapsed[0] + elapsed[1] / 1000000000).toFixed(2);
+    console.log("Total time : ", time + " secs");
+  }
+}
+
+function runSync2() {
+  const start = process.hrtime();
+  try {
+    people.forEach(async (person) => {
+      const greeting = await sayHello(person);
+      console.log(greeting);
+    });
     const elapsed = process.hrtime(start);
     const time = (elapsed[0] + elapsed[1] / 1000000000).toFixed(2);
     console.log("Total time : ", time + " secs");
@@ -59,6 +77,6 @@ function sayHello(name) {
       resolve(
         `Good evening Mr. ${name}, how are you doing?, took:${time} secs`
       );
-    }, delay);
+    }, 5000);
   });
 }
