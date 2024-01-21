@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Page</title>
+</head>
+<body>
+    Welcome to Basket Ball Score App:
+    <h3>Scores:</h3>
+    <p id="stat">Status</p>
+    <p id="out">Scores goes here</p>
+
+    <script>
+        const stat = document.getElementById("stat");
+        const out = document.getElementById("out");
+        
+        const source = new EventSource('/scores');
+
+        source.addEventListener('open', function(e){
+            stat.innerHTML = "Connected to Server for Scores !!!!";
+            console.log('Connected to server');
+        },false);
+        source.onmessage = function(e){
+            console.log(e.data);
+            out.innerHTML=e.data;
+        }
+        
+        
+
+    </script>
+</body>
+</html>
